@@ -1,0 +1,63 @@
+service: elevation-service
+
+plugins:
+  - serverless-plugin-include-dependencies
+  - serverless-api-gateway-caching
+
+provider:
+  name: aws
+  region: us-east-1
+  runtime: nodejs10.x
+  memorySize: 1536
+  apiKeys:
+    - free:
+        - test-free-key
+    - pro:
+        - test-pro-key
+  usagePlan:
+    - free:
+        quota:
+          limit: 10
+          period: DAY
+        throttle:
+          burstLimit: 200
+          rateLimit: 100
+    - starter:
+        quota:
+          limit: 100000
+          period: MONTH
+        throttle:
+          burstLimit: 200
+          rateLimit: 100
+    - intermediate:
+        quota:
+          limit: 2000000
+          period: MONTH
+        throttle:
+          burstLimit: 200
+          rateLimit: 100
+    - pro:
+        quota:
+          limit: 10000000
+          period: MONTH
+        throttle:
+          burstLimit: 200
+          rateLimit: 100
+  environment:
+    TILE_SET_PATH: s3://
+    TILE_SET_CACHE: 512
+
+functions:
+  elevation:
+    handler: elevation.handler
+    events:
+      - http:
+          path: v1
+          method: any
+          cors: true
+          private: true
+          caching:
+            enabled: true
+            cacheKeyParameters:
+              - name: request.path.lat
+              - name: request.path.lng

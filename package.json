@@ -11,12 +11,11 @@
   "license": "MIT",
   "dependencies": {
     "limited-map": "^0.0.1",
-    "lru-memoize": "^1.0.2",
-    "micro": "^9.3.2",
-    "micro-cors": "^0.1.1",
-    "micro-query": "^0.3.0"
+    "lru-memoize": "^1.0.2"
   },
   "devDependencies": {
-    "prettier": "^1.14.0"
+    "prettier": "^1.14.0",
+    "serverless-api-gateway-caching": "^1.4.0",
+    "serverless-plugin-include-dependencies": "^3.2.1"
   }
 }

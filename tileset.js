@@ -1,7 +1,6 @@
 const path = require("path");
 const { createReadStream } = require("fs");
 const { get } = require("https");
-const { promisify } = require("util");
 const { createGunzip } = require("zlib");
 const memoize = require("lru-memoize").default;
 
